@@ -19,7 +19,7 @@ class GarageDoorOpenCommnad(Command):
         self.garageDoor.up()
 
 class SimpleRemoteControl():
-    def __init__(self, command):
+    def setCommand(self, command):
         self.slot = command
 
     def buttonWasPressed(self):
@@ -51,14 +51,16 @@ class GarageDoor():
 
 class RemoteControlTest():
     def main():
+        remote = SimpleRemoteControl()
+
         light = Light()
         lightOn = LighOnCommand(light)
         garageDoor = GarageDoor()
         garageDoorOpen = GarageDoorOpenCommnad(garageDoor)
 
-        remote = SimpleRemoteControl(lightOn)
+        remote.setCommand(lightOn)
         remote.buttonWasPressed()
-        remote = SimpleRemoteControl(garageDoorOpen)
+        remote.setCommand(garageDoorOpen)
         remote.buttonWasPressed()
 
 
