@@ -54,11 +54,14 @@ class Soy(CondimentDecorater):
 class StarbuzzCoffee():
     def main():
         beverage = Beverage()
-        print(beverage.getDesctiption(), beverage.cost())
+        if beverage.cost() is None:
+            print(beverage.getDesctiption(), '$0')
+        else:
+            print(beverage.getDesctiption(), "$"+str(beverage.cost()))
     
     def orderEspresso():
         beverage2 = Espresso()
-        print(beverage2.getDesctiption(), beverage2.cost())
+        print(beverage2.getDesctiption(), "$"+str(beverage2.cost()))
     
     def orderHouseBlend():
         beverage3 = HouseBlend()
