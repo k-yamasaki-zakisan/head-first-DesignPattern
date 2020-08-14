@@ -39,6 +39,7 @@ class Mocha(CondimentDecorater):
     def cost(self):
         return 0.2 + self.coffee.cost()
 
+
 class Soy(CondimentDecorater):
     def __init__(self, coffee):
         self.coffee = coffee
