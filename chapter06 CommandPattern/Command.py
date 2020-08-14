@@ -51,13 +51,16 @@ class GarageDoor():
 
 class RemoteControlTest():
     def main():
+        #実行コマンドクラスの宣言
         remote = SimpleRemoteControl()
 
+        #コマンドインスタンスを作成
         light = Light()
         lightOn = LighOnCommand(light)
         garageDoor = GarageDoor()
         garageDoorOpen = GarageDoorOpenCommnad(garageDoor)
 
+        #コマンドをセットして実行
         remote.setCommand(lightOn)
         remote.buttonWasPressed()
         remote.setCommand(garageDoorOpen)
