@@ -1,9 +1,12 @@
 from abc import ABCMeta, abstractmethod
 
+#コマンドクラス
+##抽象パート
 class Command(metaclass=ABCMeta):
     def execute():
         pass
 
+##具象パート
 class LighOnCommand(Command):
     def __init__(self, light):
         self.light = light
@@ -18,6 +21,8 @@ class GarageDoorOpenCommnad(Command):
     def execute(self):
         self.garageDoor.up()
 
+
+#コマンド実行クラス(具象)
 class SimpleRemoteControl():
     def setCommand(self, command):
         self.slot = command
@@ -25,6 +30,7 @@ class SimpleRemoteControl():
     def buttonWasPressed(self):
         self.slot.execute()
 
+#セットされるコマンド(具象)
 class Light():
     def on(self):
         print("照明をつけました")
@@ -49,6 +55,7 @@ class GarageDoor():
         print("ガレージの照明を消しました")
 
 
+#実行処理の記述
 class RemoteControlTest():
     def main():
         #実行コマンドクラスの宣言
@@ -67,11 +74,7 @@ class RemoteControlTest():
         remote.buttonWasPressed()
 
 
-    
-
-
-
-
+#実行パート
 RemoteControlTest.main()
         
 
