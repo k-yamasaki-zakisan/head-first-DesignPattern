@@ -5,7 +5,7 @@ class Singleton():
         pass
 
     def getInstance():
-        try：
+        try:
             uniqueInstance
         except:
             uniqueInstance = Singleton()
