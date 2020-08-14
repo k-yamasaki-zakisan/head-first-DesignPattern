@@ -65,7 +65,7 @@ class StarbuzzCoffee():
         beverage3 = Mocha(beverage3)
         beverage3 = Mocha(beverage3)
         beverage3 = Soy(beverage3)
-        print(beverage3.getDesctiption(), beverage3.cost())
+        print(beverage3.getDesctiption(), "$"+str(beverage3.cost()))
 
 #実行パート  
 StarbuzzCoffee.main()
