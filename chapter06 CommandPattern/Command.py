@@ -11,6 +11,13 @@ class LighOnCommand(Command):
     def execute(self):
         self.light.on()
 
+class GarageDoorOpenCommnad(Command):
+    def __init__(self, garageDoor):
+        self.garageDoor = garageDoor
+    
+    def execute(self):
+        self.garageDoor.
+
 class SimpleRemoteControl():
     def __init__(self, command):
         self.slot = command
@@ -23,7 +30,11 @@ class Light():
         print("照明がついています")
     
     def off(self):
-        pass
+        print("照明が消えています")
+
+class GarageDoor():
+    def up(self):
+        print("ガレージを開けました")
 
 class RemoteControlTest():
     def main():
@@ -32,6 +43,8 @@ class RemoteControlTest():
 
         remote = SimpleRemoteControl(lightOn)
         remote.buttonWasPressed()
+
+
 
 RemoteControlTest.main()
         
