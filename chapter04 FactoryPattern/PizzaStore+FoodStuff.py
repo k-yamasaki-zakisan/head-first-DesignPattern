@@ -3,7 +3,6 @@ from abc import ABCMeta, abstractmethod, ABC
 #ピザストアパート
 ##抽象パート
 class PizzaStore(metaclass=ABCMeta):
-
     def OrderPizza(self,type):
         pizza = self.createPizza(type)
         pizza.prepare()
@@ -67,6 +66,7 @@ class Pizza(metaclass=ABCMeta):
     def getName(self):
         return self.name
     
+    @abstractmethod
     def toString(self):
         pass
 
@@ -95,21 +95,27 @@ class ClamPizza(Pizza, PizzaIngredientFactory):
 #食材パート
 ##抽象パート
 class PizzaIngredientFactory(metaclass=ABCMeta):
+    @abstractmethod
     def createDough():
         pass
 
+    @abstractmethod
     def createSauce():
         pass
 
+    @abstractmethod
     def createCheese():
         pass
 
+    @abstractmethod
     def createVeggies():
         pass
 
+    @abstractmethod
     def createPepperoni():
         pass
 
+    @abstractmethod
     def createClam():
         pass
 
