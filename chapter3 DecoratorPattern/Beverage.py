@@ -22,23 +22,32 @@ class Espresso(Beverage):
 
 
 class HouseBlend(Beverage):
-    def HouseBlend(self):
+    def __init__(self):
         self.description = 'ハウスブレンドコーヒー'
     
-    def cost():
+    def cost(self):
         return 0.89
 
 
 class Mocha(CondimentDecorater):
-    def Mocha(self):
-        self.Beverage = Beverage()
+    def __init__(self, coffee):
+        self.coffee = coffee
 
-    def getDesctiption():
-        return self.Beverage.getDesctiption() + '、モカ'
+    def getDesctiption(self):
+        return self.coffee.getDesctiption() + '、モカ'
     
-    def cost():
-        return 0.2 + self.Beverage.cost()
+    def cost(self):
+        return 0.2 + self.coffee.cost()
 
+class Soy(CondimentDecorater):
+    def __init__(self, coffee):
+        self.coffee = coffee
+
+    def getDesctiption(self):
+        return self.coffee.getDesctiption() + '、ソイ'
+    
+    def cost(self):
+        return 0.3 + self.coffee.cost()
 
 #注文パート
 class StarbuzzCoffee():
@@ -49,8 +58,15 @@ class StarbuzzCoffee():
     def orderEspresso():
         beverage2 = Espresso()
         print(beverage2.getDesctiption(), beverage2.cost())
-
+    
+    def orderHouseBlend():
+        beverage3 = HouseBlend()
+        beverage3 = Mocha(beverage3)
+        beverage3 = Mocha(beverage3)
+        beverage3 = Soy(beverage3)
+        print(beverage3.getDesctiption(), beverage3.cost())
 
 #実行パート  
-#StarbuzzCoffee.main()
+StarbuzzCoffee.main()
 StarbuzzCoffee.orderEspresso()
+StarbuzzCoffee.orderHouseBlend()
