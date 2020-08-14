@@ -16,7 +16,7 @@ class GarageDoorOpenCommnad(Command):
         self.garageDoor = garageDoor
     
     def execute(self):
-        self.garageDoor.
+        self.garageDoor.up()
 
 class SimpleRemoteControl():
     def __init__(self, command):
@@ -27,22 +27,43 @@ class SimpleRemoteControl():
 
 class Light():
     def on(self):
-        print("照明がついています")
+        print("照明をつけました")
     
     def off(self):
-        print("照明が消えています")
+        print("照明を消しました")
 
 class GarageDoor():
     def up(self):
         print("ガレージを開けました")
+    
+    def down(self):
+        print("ガレージを閉じました")
+    
+    def stop(self):
+        print("ガレージのシャッターを閉じました")
+    
+    def lightOn(self):
+        print("ガレージの照明をつけました")
+    
+    def lightOff(self):
+        print("ガレージの照明を消しました")
+
 
 class RemoteControlTest():
     def main():
         light = Light()
         lightOn = LighOnCommand(light)
+        garageDoor = GarageDoor()
+        garageDoorOpen = GarageDoorOpenCommnad(garageDoor)
 
         remote = SimpleRemoteControl(lightOn)
         remote.buttonWasPressed()
+        remote = SimpleRemoteControl(garageDoorOpen)
+        remote.buttonWasPressed()
+
+
+    
+
 
 
 
