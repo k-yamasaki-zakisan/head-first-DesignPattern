@@ -1,4 +1,4 @@
-#pythonは通常同期メソッドのため、マルチメソッドの問題は考慮しなくていい？
+#pythonは通常同期メソッドのため、マルチスレッドの問題は考慮しなくていい？
 
 class Singleton():
     def __uniqueInstance():
