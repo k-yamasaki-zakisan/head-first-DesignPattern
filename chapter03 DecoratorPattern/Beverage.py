@@ -1,3 +1,5 @@
+from abc import ABCMeta, abstractmethod
+
 #システムパート
 class Beverage():
     def __init__(self):
@@ -10,8 +12,9 @@ class Beverage():
         return
 
 class CondimentDecorater(Beverage): #abstract
+    @abstractmethod
     def getDesctiption():
-        return
+        pass
 
 class Espresso(Beverage):
     def __init__(self):
