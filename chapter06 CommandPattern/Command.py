@@ -19,20 +19,20 @@ class SimpleRemoteControl():
         self.slot.execute()
 
 class Light():
-    def on():
-        pass
+    def on(self):
+        print("照明がついています")
     
-    def off():
+    def off(self):
         pass
 
 class RemoteControlTest():
     def main():
-        light = light()
+        light = Light()
         lightOn = LighOnCommand(light)
 
         remote = SimpleRemoteControl(lightOn)
         remote.buttonWasPressed()
 
-RemoteControlTest()
+RemoteControlTest.main()
         
 
