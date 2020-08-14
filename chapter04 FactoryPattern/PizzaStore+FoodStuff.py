@@ -16,7 +16,6 @@ class PizzaStore(metaclass=ABCMeta):
     def createPizza(self,type): #abstract
         pass
 
-
 ##具現化パート
 class NYPizzaStore(PizzaStore):
     def __init__(self):
@@ -39,6 +38,7 @@ class NYPizzaStore(PizzaStore):
         
         return self.pizza
     
+
 #ピザパート
 ##抽象パート
 class Pizza(metaclass=ABCMeta):
@@ -70,70 +70,6 @@ class Pizza(metaclass=ABCMeta):
     def toString(self):
         pass
 
-
-#食材パート
-##抽象パート
-class PizzaIngredientFactory(metaclass=ABCMeta):
-    def createDough():
-        pass
-
-    def createSauce():
-        pass
-
-    def createCheese():
-        pass
-
-    def createVeggies():
-        pass
-
-    def createPepperoni():
-        pass
-
-    def createClam():
-        pass
-
-##具現化パート
-class NYPizzaIngredientFactory(PizzaIngredientFactory):
-    def createDough():
-        return ThinCrustDough()
-
-    def createSauce():
-        return MarinaraSauce()
-    
-    def createCheese():
-        return ReggianoCheese()
-
-    def createVeggies():
-        veggies = [Garlic(), Onion(), Mushroom(), RedPepper()]
-        return veggies
-    
-    def createPepperoni():
-        return SlicedPerpperoni()
-    
-    def createClam():
-        return FreshClams()
-
-class ChicagoPizzaIngredientFactory(PizzaIngredientFactory):
-    def createDough():
-        return ThinCrustDough()
-
-    def createSauce():
-        return PlumTomatoSauce()
-    
-    def createCheese():
-        return MozzarellaCheese()
-
-    def createVeggies():
-        veggies = [BlackOlives(), Spinach(), EggPlant()]
-        return veggies
-    
-    def createPepperoni():
-        return SlicedPerpperoni()
-    
-    def createClam():
-        return FrozenClams()
-
-
 ##具現化パート
 class CheesePizza(Pizza):
     def __init__(self, PizzaIngredientFactory):
@@ -159,6 +95,69 @@ class ClamPizza(Pizza, PizzaIngredientFactory):
 #食材パート
 ##抽象パート
 class PizzaIngredientFactory(metaclass=ABCMeta):
+    def createDough():
+        pass
+
+    def createSauce():
+        pass
+
+    def createCheese():
+        pass
+
+    def createVeggies():
+        pass
+
+    def createPepperoni():
+        pass
+
+    def createClam():
+        pass
+
+##具現化パート
+class NYPizzaIngredientFactory(PizzaIngredientFactory):
+    def createDough():
+        return ThinCrustDough()
+
+    def createSauce():
+        return MarinaraSauce()
+    
+    def createCheese():
+        return ReggianoCheese()
+
+    def createVeggies():
+        veggies = [Garlic(), Onion(), Mushroom(), RedPepper()]
+        return veggies
+    
+    def createPepperoni():
+        return SlicedPerpperoni()
+    
+    def createClam():
+        return FreshClams()
+
+class ChicagoPizzaIngredientFactory(PizzaIngredientFactory):
+    def createDough():
+        return ThinCrustDough()
+
+    def createSauce():
+        return PlumTomatoSauce()
+    
+    def createCheese():
+        return MozzarellaCheese()
+
+    def createVeggies():
+        veggies = [BlackOlives(), Spinach(), EggPlant()]
+        return veggies
+    
+    def createPepperoni():
+        return SlicedPerpperoni()
+    
+    def createClam():
+        return FrozenClams()
+
+
+#食材パート
+##抽象パート
+class PizzaIngredientFactory(metaclass=ABCMeta):
     @abstractmethod
     def createDough():
         pass
@@ -182,7 +181,6 @@ class PizzaIngredientFactory(metaclass=ABCMeta):
     @abstractmethod
     def createClam():
         pass
-
 
 ##具現化パート
 class NYPizzaIngredientFactory(PizzaIngredientFactory):
@@ -225,12 +223,16 @@ class ChicagoPizzaIngredientFactory(PizzaIngredientFactory):
     def createClam(self):
         return FrozenClams()
 
+
 class ThinCrustDough():
     pass
+
 class MarinaraSauce():
     pass
+
 class ReggianoCheese():
     pass
+
 
 #注文パート2(食材入り)
 class PizzaTestDrive2():
@@ -240,5 +242,5 @@ class PizzaTestDrive2():
         print("美味しいピザを食べました")
 
 
-##実行パート2(食材入り)
+#実行パート2(食材入り)
 PizzaTestDrive2.main()
