@@ -34,7 +34,7 @@ class Mocha(CondimentDecorater):
         self.coffee = coffee
 
     def getDesctiption(self):
-        return self.coffee.getDesctiption() + '、モカ'
+        return self.coffee.getDesctiption() + '+モカ'
     
     def cost(self):
         return 0.2 + self.coffee.cost()
@@ -45,7 +45,7 @@ class Soy(CondimentDecorater):
         self.coffee = coffee
 
     def getDesctiption(self):
-        return self.coffee.getDesctiption() + '、ソイ'
+        return self.coffee.getDesctiption() + '+ソイ'
     
     def cost(self):
         return 0.3 + self.coffee.cost()
@@ -71,6 +71,8 @@ class StarbuzzCoffee():
         print(beverage3.getDesctiption(), "$"+str(beverage3.cost()))
 
 #実行パート  
-StarbuzzCoffee.main()
-StarbuzzCoffee.orderEspresso()
-StarbuzzCoffee.orderHouseBlend()
+StarbuzzCoffee.main()              #不要な飲み物 $0
+StarbuzzCoffee.orderEspresso()     #エスプレッソ $1.99
+StarbuzzCoffee.orderHouseBlend()   #ハウスブレンドコーヒー+モカ+モカ+ソイ $1.59
+
+
