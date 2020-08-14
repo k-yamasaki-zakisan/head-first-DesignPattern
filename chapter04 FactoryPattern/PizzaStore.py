@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+
 #ピザストアパート
 ##抽象パート
 class PizzaStore(metaclass=ABCMeta):
