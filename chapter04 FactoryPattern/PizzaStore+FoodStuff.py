@@ -66,7 +66,6 @@ class Pizza(metaclass=ABCMeta):
     def getName(self):
         return self.name
     
-    @abstractmethod
     def toString(self):
         pass
 
@@ -81,8 +80,8 @@ class CheesePizza(Pizza):
         self.sauce = self.ingredientFactory.createSauce()
         self.cheese = self.ingredientFactory.createCheese()
 
-class ClamPizza(Pizza, PizzaIngredientFactory):
-    def __init__(self):
+class ClamPizza(Pizza):
+    def __init__(self, PizzaIngredientFactory):
         self.ingredientFactory = PizzaIngredientFactory
     
     def prepare(self):
