@@ -74,5 +74,3 @@ class StarbuzzCoffee():
 StarbuzzCoffee.main()              #不要な飲み物 $0
 StarbuzzCoffee.orderEspresso()     #エスプレッソ $1.99
 StarbuzzCoffee.orderHouseBlend()   #ハウスブレンドコーヒー+モカ+モカ+ソイ $1.59
-
-
