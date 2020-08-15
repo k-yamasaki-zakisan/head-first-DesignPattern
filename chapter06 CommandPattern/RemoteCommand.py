@@ -90,10 +90,10 @@ class RemoteControl():
         self.offCommands[slot].execute()
     
     def toString(self):
-        self.stringBuff = stringBuffer()
+        self.stringBuff = []
         self.stringBuff.append("---------リモコン----------")
-        for i in range(len(onCommand)):
-            self.stringBuff.append("[スロット"+ i + "]" + self.onCommands[i].getClass().getName() + " " + self.offCommands[i].getClass().getName())
+        for i in range(len(self.onCommands)):
+            self.stringBuff.append("[スロット"+ str(i) + "]" + str(self.onCommands[i]) + " " + str(self.offCommands[i]))
         
         return str(self.stringBuff)
 
@@ -127,7 +127,6 @@ class RemoteLoader():
 
         remoteControl.onButtonWasPushed(2)    #ガレージを開けました
         remoteControl.offButtonWasPushed(2)   #ガレージを閉じました
-
 
 
 RemoteLoader.main()
