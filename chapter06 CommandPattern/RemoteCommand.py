@@ -76,8 +76,13 @@ class GarageDoor():
 
 class RemoteControl():
     def __init__(self):
-        self.onCommands = [None]*7
-        self.offCommands = [None]*7
+        self.onCommands = []
+        self.offCommands = []
+
+        nocommand = Nocommand()
+        for _ in range(7):
+            self.onCommands.append(nocommand)
+            self.offCommands.append(nocommand)
 
     def setCommand(self, slot, onCommand, offCommand):
         self.onCommands[slot] = onCommand
@@ -96,6 +101,10 @@ class RemoteControl():
             self.stringBuff.append("[スロット"+ str(i) + "]" + str(self.onCommands[i]) + " " + str(self.offCommands[i]))
         
         return str(self.stringBuff)
+    
+class Nocommand(Command):
+    def execute(self):
+        pass
 
 
 class RemoteLoader():
