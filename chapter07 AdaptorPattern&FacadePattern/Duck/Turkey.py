@@ -23,11 +23,11 @@ class WildTurkey(Turkey):
 class TurkeyAdapter(Duck):
     #クラスのインスタンス（turkey）で初期化
     def __init__(self, turkey):
-        self.turkey = turkey
+        self.__turkey = turkey
     
     def quack(self):
-        self.turkey.gobble()
+        self.__turkey.gobble()
     
     def fly(self):
         for i in range(5):
-            self.turkey.fly()
+            self.__turkey.fly()

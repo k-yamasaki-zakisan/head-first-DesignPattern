@@ -21,6 +21,6 @@ class MallardDuck(Duck):
 #コマンドテストクラス
 class TestDuck():
     def __init__(self, duck):
-        self.duck = duck
-        self.duck.quack()
-        self.duck.fly()
+        self.__duck = duck
+        self.__duck.quack()
+        self.__duck.fly()
