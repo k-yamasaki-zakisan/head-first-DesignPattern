@@ -25,5 +25,6 @@ class DuckTestDrive():
                                     #短い距離を飛んでいます
                                     #短い距離を飛んでいます
 
+#実行！！
 DuckTestDrive.main()
 
