@@ -12,43 +12,118 @@ class Command(metaclass=ABCMeta):
 ##具象パート
 class LightOnCommand(Command):
     def __init__(self, light):
-        self.light = light
+        self.__light = light
     
     def execute(self):
-        self.light.on()
+        self.__light.on()
     
     def undo(self):
-        self.light.off()
+        self.__light.off()
 
 class LightOffCommand(Command):
     def __init__(self, light):
-        self.light = light
+        self.__light = light
     
     def execute(self):
-        self.light.off()
+        self.__light.off()
     
     def undo(self):
-        self.light.on()
+        self.__light.on()
 
 class GarageDoorUpCommnad(Command):
     def __init__(self, garageDoor):
-        self.garageDoor = garageDoor
+        self.__garageDoor = garageDoor
     
     def execute(self):
-        self.garageDoor.up()
+        self.__garageDoor.up()
     
     def undo(self):
-        self.garageDoor.down()
+        self.__garageDoor.down()
 
 class GarageDoorDownCommnad(Command):
     def __init__(self, garageDoor):
-        self.garageDoor = garageDoor
+        self.__garageDoor = garageDoor
     
     def execute(self):
-        self.garageDoor.down()
+        self.__garageDoor.down()
     
-    def undo():
-        self.garageDoor.up()
+    def undo(self):
+        self.__garageDoor.up()
+
+class CeillingFanHighCommand(Command):
+    def __init__(self, ceilingFan):
+        self.__ceilingFan = ceilingFan
+    
+    def execute(self):
+        preSpeed = self.__ceilingFan.getSpeed()
+        self.__ceilingFan.high()
+
+    def undo(self):
+        if preSpeed == self.__ceilingFan.checkHigh():
+            self.__ceilingFan.high()
+        elif preSpeed == self.__ceilingFan.checkMedium():
+            self.__ceilingFan.medium()
+        elif preSpeed == self.__ceilingFan.checkLow():
+            self.__ceilingFan.low()
+        elif preSpeed == self.__ceilingFan.checkOff():
+            self.__ceilingFan.off()
+
+class CeillingFanMediumCommand(Command):
+    def __init__(self, ceilingFan):
+        self.__ceilingFan = ceilingFan
+        self.preSpeed = self.__ceilingFan.checkOff()
+    
+    def execute(self):
+        self.preSpeed = self.__ceilingFan.getSpeed()
+        self.__ceilingFan.medium()
+
+    def undo(self):
+        if self.preSpeed == self.__ceilingFan.checkHigh():
+            self.__ceilingFan.high()
+        elif self.preSpeed == self.__ceilingFan.checkMedium():
+            self.__ceilingFan.medium()
+        elif self.preSpeed == self.__ceilingFan.checkLow():
+            self.__ceilingFan.low()
+        elif self.preSpeed == self.__ceilingFan.checkOff():
+            self.__ceilingFan.off()
+
+class CeillingFanLowCommand(Command):
+    def __init__(self, ceilingFan):
+        self.__ceilingFan = ceilingFan
+        self.preSpeed = self.__ceilingFan.checkOff()
+    
+    def execute(self):
+        self.preSpeed = self.__ceilingFan.getSpeed()
+        self.__ceilingFan.low()
+
+    def undo(self):
+        if self.preSpeed == self.__ceilingFan.checkHigh():
+            self.__ceilingFan.high()
+        elif self.preSpeed == self.__ceilingFan.checkMedium():
+            self.__ceilingFan.medium()
+        elif self.preSpeed == self.__ceilingFan.checkLow():
+            self.__ceilingFan.low()
+        elif self.preSpeed == self.__ceilingFan.checkOff():
+            self.__ceilingFan.off()
+
+class CeillingFanOffCommand(Command):
+    def __init__(self, ceilingFan):
+        self.__ceilingFan = ceilingFan
+        self.preSpeed = self.__ceilingFan.checkOff()
+    
+    def execute(self):
+        self.preSpeed = self.__ceilingFan.getSpeed()
+        self.__ceilingFan.off()
+
+    def undo(self):
+        if self.preSpeed == self.__ceilingFan.checkHigh():
+            self.__ceilingFan.high()
+        elif self.preSpeed == self.__ceilingFan.checkMedium():
+            self.__ceilingFan.medium()
+        elif self.preSpeed == self.__ceilingFan.checkLow():
+            self.__ceilingFan.low()
+        elif self.preSpeed == self.__ceilingFan.checkOff():
+            self.__ceilingFan.off()
 
 
 # class StereOnWithCDCommand(Command):
@@ -88,43 +163,82 @@ class GarageDoor():
     def lightOff(self):
         print("ガレージの照明を消しました")
 
+class CeilingFan():
+    def __init__(self, location):
+        self.__HIGH = 3
+        self.__MEDIUM = 2
+        self.__LOW = 1
+        self.__OFF = 0
+        self.__location = location
+        self.speed = 0
+    
+    def high(self):
+        self.speed = self.__HIGH
+        print("扇風機の強さは「強」です")
+    
+    def medium(self):
+        self.speed = self.__MEDIUM
+        print("扇風機の強さは「中」です")
+    
+    def low(self):
+        self.speed = self.__LOW
+        print("扇風機の強さは「弱」です")
+    
+    def off(self):
+        self.speed = self.__OFF
+        print("扇風機を切りました")
+    
+    def checkHigh(self):
+        return self.__HIGH
+    
+    def checkMedium(self):
+        return self.__MEDIUM
+
+    def checkLow(self):
+        return self.__LOW
+    
+    def checkOff(self):
+        return self.__OFF
+
+    def getSpeed(self):
+        return self.speed
 
 #リモコンボタンのセットクラス
+#抽象パート
 class RemoteControl():
     def __init__(self):
-        self.onCommands = []
-        self.offCommands = []
+        self.__onCommands = []
+        self.__offCommands = []
 
         nocommand = Nocommand()
         for _ in range(7):
-            self.onCommands.append(nocommand)
-            self.offCommands.append(nocommand)
+            self.__onCommands.append(nocommand)
+            self.__offCommands.append(nocommand)
         
-        self.undocommand = nocommand
+        self.__undocommand = nocommand
 
     def setCommand(self, slot, onCommand, offCommand):
-        self.onCommands[slot] = onCommand
-        self.offCommands[slot] = offCommand
+        self.__onCommands[slot] = onCommand
+        self.__offCommands[slot] = offCommand
     
     def onButtonWasPushed(self, slot):
-        self.onCommands[slot].execute()
-        self.undocommand = self.onCommands[slot]
+        self.__onCommands[slot].execute()
+        self.__undocommand = self.__onCommands[slot]
     
     def offButtonWasPushed(self, slot):
-        self.offCommands[slot].execute()
-        self.undocommand = self.offCommands[slot]
+        self.__offCommands[slot].execute()
+        self.__undocommand = self.__offCommands[slot]
     
     def undoButtonWaspushed(self):
-        self.undocommand.undo()
+        self.__undocommand.undo()
     
     def toString(self):
-        self.stringBuff = []
-        self.stringBuff.append("---------リモコン一覧----------")
+        self.__stringBuff = []
+        self.__stringBuff.append("---------リモコン一覧----------")
         for i in range(len(self.onCommands)):
-            self.stringBuff.append("[スロット"+ str(i) + "]" + str(self.onCommands[i]) + " " + str(self.offCommands[i]))
+            self.__stringBuff.append("[スロット"+ str(i) + "]" + str(self.__onCommands[i]) + " " + str(self.__offCommands[i]))
         
-        return str(self.stringBuff)
-
+        return str(self.__stringBuff)
 
 #設定されていないボタン用の実装を無効化するクラス
 class Nocommand(Command):
@@ -184,8 +298,35 @@ class RemoteLoader():
         remoteControl.onButtonWasPushed(0)    #リビングルームの照明をつけました
 
         remoteControl.undoButtonWaspushed()   #リビングルームの照明を消しました
+    
+    def mainCeilingFanTest():
+        remoteControl = RemoteControl()
+
+        ceillingFan = CeilingFan("リビングルーム")
+
+        ceillingFanHigh = CeillingFanHighCommand(ceillingFan)
+        ceillingFanMedium = CeillingFanMediumCommand(ceillingFan)
+        ceillingFanLow = CeillingFanLowCommand(ceillingFan)
+        ceillingFanOff = CeillingFanOffCommand(ceillingFan)
+
+        remoteControl.setCommand(2, ceillingFanHigh, ceillingFanOff)
+        remoteControl.setCommand(1, ceillingFanMedium, ceillingFanOff)
+        remoteControl.setCommand(0, ceillingFanLow, ceillingFanOff)
+
+        remoteControl.onButtonWasPushed(0)    #扇風機の強さは「弱」です
+        remoteControl.offButtonWasPushed(0)   #扇風機を切りました
+
+        remoteControl.undoButtonWaspushed()   #扇風機の強さは「弱」です
+
+        remoteControl.onButtonWasPushed(1)    #扇風機の強さは「中」です
+
+        remoteControl.undoButtonWaspushed()   #扇風機の強さは「弱」です
+
+        remoteControl.offButtonWasPushed(2)   #扇風機を切りました
+        remoteControl.onButtonWasPushed(2)    #扇風機の強さは「強」です
 
 
 #実行
-RemoteLoader.mainTest()
-RemoteLoader.mainUndoTest()
+#RemoteLoader.mainTest()
+#RemoteLoader.mainUndoTest()
+RemoteLoader.mainCeilingFanTest()
