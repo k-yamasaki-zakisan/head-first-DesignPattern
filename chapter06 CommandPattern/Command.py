@@ -69,12 +69,14 @@ class RemoteControlTest():
 
         #コマンドをセットして実行
         remote.setCommand(lightOn)
-        remote.buttonWasPressed()
+        remote.buttonWasPressed()               #照明をつけました
         remote.setCommand(garageDoorOpen)
-        remote.buttonWasPressed()
+        remote.buttonWasPressed()               #ガレージを開けました
 
 
 #実行パート
 RemoteControlTest.main()
+
+#
         
 

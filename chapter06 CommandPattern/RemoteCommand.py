@@ -109,16 +109,25 @@ class RemoteLoader():
         lightRoomLightOn = LightOnCommand(lightRoomLight)
         lightRoomLightOff = LightOffCommand(lightRoomLight)
 
+        kitchenRoomLightOn = LightOnCommand(kitchenLight)
+        kitchenRoomLightOff = LightOffCommand(kitchenLight)
+
         garageDoorUpCommnad = GarageDoorUpCommnad(garageDoor)
         garageDoorDownCommnad = GarageDoorDownCommnad(garageDoor)
 
         remoteControl.setCommand(0, lightRoomLightOn, lightRoomLightOff)
-        remoteControl.setCommand(1, garageDoorUpCommnad, garageDoorDownCommnad)
+        remoteControl.setCommand(1, kitchenRoomLightOn, kitchenRoomLightOff)
+        remoteControl.setCommand(2, garageDoorUpCommnad, garageDoorDownCommnad)
 
-        remoteControl.onButtonWasPushed(0)
-        remoteControl.offButtonWasPushed(0)
+        remoteControl.onButtonWasPushed(0)    #リビングルームの照明をつけました
+        remoteControl.offButtonWasPushed(0)   #リビングルームの照明を消しました
 
-        remoteControl.onButtonWasPushed(1)
-        remoteControl.offButtonWasPushed(1)
+        remoteControl.onButtonWasPushed(1)    #キッチンの照明をつけました
+        remoteControl.offButtonWasPushed(1)   #キッチンの照明を消しました
+
+        remoteControl.onButtonWasPushed(2)    #ガレージを開けました
+        remoteControl.offButtonWasPushed(2)   #ガレージを閉じました
+
+
 
 RemoteLoader.main()
