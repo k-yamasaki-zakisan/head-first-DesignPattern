@@ -10,8 +10,8 @@ class DuckTestDrive():
         turkeyAdapter = TurkeyAdapter(turkey)
 
         print("Turkeyの出力-------------------")
-        turkey.gobble()         #ゴロゴロ
-        turkey.fly()            #短い距離を飛んでいます
+        turkey.gobble()             #ゴロゴロ
+        turkey.fly()                #短い距離を飛んでいます
 
         print("Duckの出力---------------------")
         TestDuck(duck)              #ガーガー
