@@ -249,8 +249,10 @@ class Nocommand(Command):
 #実行パート
 class RemoteLoader():
     def mainTest():
+        #実行コマンドクラスの宣言
         remoteControl = RemoteControl()
 
+        #コマンドインスタンスを作成
         lightRoomLight = Light("リビングルーム")
         kitchenLight = Light("キッチン")
         garageDoor = GarageDoor()
@@ -264,10 +266,12 @@ class RemoteLoader():
         garageDoorUpCommnad = GarageDoorUpCommnad(garageDoor)
         garageDoorDownCommnad = GarageDoorDownCommnad(garageDoor)
 
+         #コマンドをセット
         remoteControl.setCommand(0, lightRoomLightOn, lightRoomLightOff)
         remoteControl.setCommand(1, kitchenRoomLightOn, kitchenRoomLightOff)
         remoteControl.setCommand(2, garageDoorUpCommnad, garageDoorDownCommnad)
 
+        #コマンド実行
         remoteControl.onButtonWasPushed(0)    #リビングルームの照明をつけました
         remoteControl.offButtonWasPushed(0)   #リビングルームの照明を消しました
 
@@ -278,15 +282,18 @@ class RemoteLoader():
         remoteControl.offButtonWasPushed(2)   #ガレージを閉じました
 
     def mainUndoTest():
+        #実行コマンドクラスの宣言
         remoteControl = RemoteControl()
 
+        #コマンドインスタンスを作成
         lightRoomLight = Light("リビングルーム")
-
         lightRoomLightOn = LightOnCommand(lightRoomLight)
         lightRoomLightOff = LightOffCommand(lightRoomLight)
 
+        #コマンドをセット
         remoteControl.setCommand(0, lightRoomLightOn, lightRoomLightOff)
 
+        #コマンド実行
         remoteControl.onButtonWasPushed(0)    #リビングルームの照明をつけました
         remoteControl.offButtonWasPushed(0)   #リビングルームの照明を消しました
 
@@ -300,8 +307,10 @@ class RemoteLoader():
         remoteControl.undoButtonWaspushed()   #リビングルームの照明を消しました
     
     def mainCeilingFanTest():
+        #実行コマンドクラスの宣言
         remoteControl = RemoteControl()
 
+        #コマンドインスタンスを作成
         ceillingFan = CeilingFan("リビングルーム")
 
         ceillingFanHigh = CeillingFanHighCommand(ceillingFan)
@@ -309,10 +318,12 @@ class RemoteLoader():
         ceillingFanLow = CeillingFanLowCommand(ceillingFan)
         ceillingFanOff = CeillingFanOffCommand(ceillingFan)
 
+        #コマンドをセット
         remoteControl.setCommand(2, ceillingFanHigh, ceillingFanOff)
         remoteControl.setCommand(1, ceillingFanMedium, ceillingFanOff)
         remoteControl.setCommand(0, ceillingFanLow, ceillingFanOff)
 
+        #コマンド実行
         remoteControl.onButtonWasPushed(0)    #扇風機の強さは「弱」です
         remoteControl.offButtonWasPushed(0)   #扇風機を切りました
 
