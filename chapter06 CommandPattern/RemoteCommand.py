@@ -16,6 +16,10 @@ class MacroCommand(Command):
     def execute(self):
         for i in range(len(self.__commands)):
             self.__commands[i].execute()
+    
+    def undo(self):
+        for i in range(len(self.__commands)-1):
+            self.__commands[i].undo()
 
 ##具象パート
 class LightOnCommand(Command):
