@@ -9,6 +9,15 @@ class Command(metaclass=ABCMeta):
     def undo():
         pass
 
+class MacroCommand(Command):
+    def __init__(self, commands):
+        self.__commands = commands
+    
+    def execute(self):
+        for i in range(len(self.__commands)):
+            self.__commands[i].execute()
+
+
 ##具象パート
 class LightOnCommand(Command):
     def __init__(self, light):
@@ -259,10 +268,8 @@ class RemoteLoader():
 
         lightRoomLightOn = LightOnCommand(lightRoomLight)
         lightRoomLightOff = LightOffCommand(lightRoomLight)
-
         kitchenRoomLightOn = LightOnCommand(kitchenLight)
         kitchenRoomLightOff = LightOffCommand(kitchenLight)
-
         garageDoorUpCommnad = GarageDoorUpCommnad(garageDoor)
         garageDoorDownCommnad = GarageDoorDownCommnad(garageDoor)
 
@@ -336,8 +343,36 @@ class RemoteLoader():
         remoteControl.offButtonWasPushed(2)   #扇風機を切りました
         remoteControl.onButtonWasPushed(2)    #扇風機の強さは「強」です
 
+    def mainMacroTest():
+        #実行コマンドクラスの宣言
+        remoteControl = RemoteControl()
+
+        #コマンドインスタンスを作成
+        lightRoomLight = Light("リビングルーム")
+        kitchenLight   = Light("キッチン")
+        garageDoor     = GarageDoor()
+
+        lightRoomLightOn      = LightOnCommand(lightRoomLight)
+        lightRoomLightOff     = LightOffCommand(lightRoomLight)
+        kitchenRoomLightOn    = LightOnCommand(kitchenLight)
+        kitchenRoomLightOff   = LightOffCommand(kitchenLight)
+        garageDoorUpCommnad   = GarageDoorUpCommnad(garageDoor)
+        garageDoorDownCommnad = GarageDoorDownCommnad(garageDoor)
+
+        #コマンドをセット(マクロ化するために配列でひとまとめにする)
+        partyOn  = [lightRoomLightOn, kitchenRoomLightOn, garageDoorUpCommnad]
+        partyOff = [lightRoomLightOff, kitchenRoomLightOff, garageDoorDownCommnad]
+
+        partyOnMacro  = MacroCommand(partyOn)
+        partyOffMacro = MacroCommand(partyOff)
+        remoteControl.setCommand(0, partyOnMacro, partyOffMacro)
+
+        #コマンド実行
+        remoteControl.onButtonWasPushed(0)    #リビングルームの照明をつけました キッチンの照明をつけました ガレージを開けました
+        remoteControl.offButtonWasPushed(0)   #リビングルームの照明を消しました キッチンの照明を消しました ガレージを閉じました
 
 #実行
 #RemoteLoader.mainTest()
 #RemoteLoader.mainUndoTest()
-RemoteLoader.mainCeilingFanTest()
+#RemoteLoader.mainCeilingFanTest()
+RemoteLoader.mainMacroTest()
