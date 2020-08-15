@@ -1,3 +1,6 @@
+#統合されたインターフェースを作成してボタン一つで映画を見るのに必要な操作を行う
+#必要クラスが多すぎて実装を断念
+
 class HomethjeaterFacade():
     def __init__(self, amp, tuner, dvd, cd , projector, screen, lights, popper):
         self.amp = amp
@@ -23,7 +26,7 @@ class HomethjeaterFacade():
         self.dvd.on()
         self.dvd.play(movie)
     
-    def dndMovie(self):
+    def endMovie(self):
         print("ムービーシアターを停止します--------------")
         self.popper.off()
         self.lights.on()
@@ -33,3 +36,11 @@ class HomethjeaterFacade():
         self.dvd.stop()
         self.dvd.eject()
         self.dvd.off()
+
+
+class HometheaterTestDrive():
+    def main():
+        homeTheater =  HomethjeaterFacade(amp, tuner, dvd, cd, projector,
+                                          screen, lights, popper)
+        homeTheater.watchMovie("（劇場版）ぐりとぐらとグフ")
+        homeTheater.endMovie()
