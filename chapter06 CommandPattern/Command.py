@@ -76,7 +76,4 @@ class RemoteControlTest():
 
 #実行パート
 RemoteControlTest.main()
-
-#
         
-
