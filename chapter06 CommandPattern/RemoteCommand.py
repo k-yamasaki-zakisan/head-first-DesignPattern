@@ -17,7 +17,6 @@ class MacroCommand(Command):
         for i in range(len(self.__commands)):
             self.__commands[i].execute()
 
-
 ##具象パート
 class LightOnCommand(Command):
     def __init__(self, light):
