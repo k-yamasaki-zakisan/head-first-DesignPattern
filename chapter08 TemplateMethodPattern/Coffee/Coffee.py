@@ -59,7 +59,7 @@ class CoffeeWithHook(CaffeineBeverage):
         self.__answer = self.__getUserInput()
 
         if self.__answer == "y" or self.__answer == "Y":
-            self.thisCoffee = "砂糖とミルク付きコーヒー"
+            self.thisCoffee = "砂糖+ミルク+" + self.thisCoffee
             return True
         else:
             return False
@@ -110,7 +110,7 @@ class TeaWithHook(CaffeineBeverage):
         self.__answer = self.__getUserInput()
 
         if self.__answer == "y" or self.__answer == "Y":
-            self.thisTea = "レモン付きの紅茶"
+            self.thisTea = self.thisTea + "+レモン"
             return True
         else:
             return False
