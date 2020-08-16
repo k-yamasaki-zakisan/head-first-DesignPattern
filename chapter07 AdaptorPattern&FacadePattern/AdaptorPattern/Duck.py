@@ -3,9 +3,11 @@ from abc import ABCMeta, abstractmethod
 #通常アヒル
 ##抽象パート
 class Duck(metaclass=ABCMeta):
+    @abstractmethod
     def quack():
         pass
 
+    @abstractmethod
     def fly():
         pass
 

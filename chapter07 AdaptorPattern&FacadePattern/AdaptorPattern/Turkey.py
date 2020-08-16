@@ -4,9 +4,11 @@ from Duck import Duck
 #七面鳥
 ##抽象パート
 class Turkey(metaclass=ABCMeta):
+    @abstractmethod
     def gobble():
         pass
 
+    @abstractmethod
     def fly():
         pass
 
