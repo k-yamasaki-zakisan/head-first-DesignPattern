@@ -47,12 +47,16 @@ class PancakeHouseMenu():
                     3.59)
     
     def addItem(self, name:str, description:str, vegetarian:bool, price:float):
-        __menuItem = MenuItem(name, description, vegetarian, price)
+        #__menuItem = MenuItem(name, description, vegetarian, price)
+        __menuItem = MenuItem()
         self.__menuItems.append(__menuItem)
     
     @property
     def menuItems(self) -> list:
         return self.__menuItems
+    
+    def createInterator(self):
+        return PancakeHouseMenuInterator(self.__menuItems)
     
 
 class DinerMenu():
@@ -118,19 +122,41 @@ class DinerMenuInterator(Interator):
             return False
         else:
             return True
+
+
+class PancakeHouseMenuInterator(Interator):
+    def __init__(self, items):
+        self.__items = items
+        self.__menuItem = ""
+        self.__position = 0
+    
+    def next(self):
+        self.__menuItem = self.__items[self.__position]
+        self.__position += 1
+        return self.__menuItem
+    
+    def hasNext(self) ->bool:
+        print(self.__items)
+        if len(self.__items) <= self.__position or self.__items[self.__position] == None:
+            return False
+        else:
+            return True
+
     
 class Waitress():
-    def __init__(self, pancakeHouseMenu=None, dinerMenu=None):
+    def __init__(self, pancakeHouseMenu, dinerMenu):
         self.__pancakeHouseMenu = pancakeHouseMenu
         self.__dinerMenu = dinerMenu
     
     def printMenu(self):
+        pancakeMenu = self.__pancakeHouseMenu.createInterator()
+        dinerMenu = self.__dinerMenu.createInterator()
         if self.__pancakeHouseMenu:
             print("メニューーーーーーーーー")
-            self.__printMenu(self.__pancakeHouseMenu)
+            self.__printMenu(PancakeHouseMenuInterator(pancakeMenu))
         if self.__dinerMenu:
             print("メニューーーーーーーーー")
-            self.__printMenu(self.__dinerMenu)
+            self.__printMenu(DinerMenuInterator(dinerMenu))
         
     def __printMenu(self, iterator):
         while iterator.hasNext():
@@ -143,8 +169,9 @@ class Waitress():
 #実行パート
 class MenuTestDrive():
     def main():
+        pancakeHouseMenu = PancakeHouseMenu()
         dinerMenu = DinerMenu()
-        waitress = Waitress("",dinerMenu)
+        waitress = Waitress(pancakeHouseMenu,dinerMenu)
 
         waitress.printMenu()
 
