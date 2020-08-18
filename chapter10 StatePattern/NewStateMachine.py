@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
+#抽象パート
 class State(metaclass=ABCMeta):
     def insertQuarter(self):
         pass
@@ -13,6 +14,10 @@ class State(metaclass=ABCMeta):
     def dispense(self):
         pass
 
+    def refill(self):
+        pass
+
+#具象パート
 class NoQuarterState(State):
     def __init__(self, gumballMachine):
         self.gumballMachine = gumballMachine
@@ -117,6 +122,9 @@ class SoldOutState(State):
     def dispense(self):
         print("販売するガムボールがありません")
     
+    def refill(self):
+        self.gumballMachine.setState(self.gumballMachine.noQuarterState)
+
 
 class GumballMachine():
     def __init__(self, numberGumballs:int):
@@ -130,25 +138,30 @@ class GumballMachine():
         if 0 < self.__count:
             self.__state = self.__noQuarterState
         
-    def insertQuarter(self):
+    def insertQuarter(self) -> None:
         self.__state.insertQuarter()
         
     def ejectQuarter(self):
         self.__state.ejectQuarter()
         
-    def turnCrank(self):
+    def turnCrank(self) -> None:
         self.__state.turnCrank()
 
-    def dispense(self):
+    def dispense(self) -> None:
         self.__state.dispense()
         
     def setState(self, state):
         self.__state = state
         
-    def releaseBall(self):
+    def releaseBall(self) -> None:
         print("ガムボールがスロットから転がり出てきます")
         if self.__count != 0:
             self.__count -= 1
+    
+    def refill(self, count:int):
+        self.__count += count
+        print("ガムボールは補充されました。新たなカウントは" + str(self.__count))
+        self.__state.refill()
         
     @property
     def soldOutState(self):
@@ -182,7 +195,7 @@ class GumballMachine():
 #実行パート
 class gumballMachineTestDrive():
     def main():
-        gumballMachine = GumballMachine(5)
+        gumballMachine = GumballMachine(4)
 
         print("---------------------------------")
         print("残ボール数："+ str(gumballMachine.count))
@@ -211,6 +224,9 @@ class gumballMachineTestDrive():
         print("---------------------------------")
         print("残ボール数："+ str(gumballMachine.count))
         print("---------------------------------")
+
+        if gumballMachine.count == 0:
+            gumballMachine.refill(5)
         
 
 #実行
