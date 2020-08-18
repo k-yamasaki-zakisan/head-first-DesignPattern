@@ -17,9 +17,10 @@ class State(metaclass=ABCMeta):
     def refill(self):
         pass
 
+
 #具象パート
 class NoQuarterState(State):
-    def __init__(self, gumballMachine):
+    def __init__(self, gumballMachine:object):
         self.gumballMachine = gumballMachine
     
     def insertQuarter(self):
@@ -36,7 +37,7 @@ class NoQuarterState(State):
         print("まず支払いをする必要があります")
 
 class HasQuarterState(State):
-    def __init__(self, gumballMachine):
+    def __init__(self, gumballMachine:object):
         self.gumballMachine = gumballMachine
     
     def insertQuarter(self):
@@ -57,9 +58,10 @@ class HasQuarterState(State):
 
     def dispense(self):
         print("販売するガムボールがありません")
-    
+
+ 
 class SoldState(State):
-    def __init__(self, gumballMachine):
+    def __init__(self, gumballMachine:object):
         self.gumballMachine = gumballMachine
     
     def insertQuarter(self):
@@ -79,8 +81,9 @@ class SoldState(State):
             print("おっと、ガムボールがなくなりました")
             self.gumballMachine.setState(self.gumballMachine.soldOutState)
 
+
 class WinnerState(State):
-    def __init__(self, gumballMachine):
+    def __init__(self, gumballMachine:object):
         self.gumballMachine = gumballMachine
     
     def insertQuarter(self):
@@ -107,7 +110,7 @@ class WinnerState(State):
 
 
 class SoldOutState(State):
-    def __init__(self, gumballMachine):
+    def __init__(self, gumballMachine:object):
         self.gumballMachine = gumballMachine
     
     def insertQuarter(self):
@@ -124,110 +127,3 @@ class SoldOutState(State):
     
     def refill(self):
         self.gumballMachine.setState(self.gumballMachine.noQuarterState)
-
-
-class GumballMachine():
-    def __init__(self, numberGumballs:int):
-        self.__soldOutState = SoldOutState(self)
-        self.__noQuarterState = NoQuarterState(self)
-        self.__hasQuarterState = HasQuarterState(self)
-        self.__soldState = SoldState(self)
-        self.__winnerState = WinnerState(self)
-        self.__state = self.__soldState
-        self.__count = numberGumballs
-        if 0 < self.__count:
-            self.__state = self.__noQuarterState
-        
-    def insertQuarter(self) -> None:
-        self.__state.insertQuarter()
-        
-    def ejectQuarter(self):
-        self.__state.ejectQuarter()
-        
-    def turnCrank(self) -> None:
-        self.__state.turnCrank()
-
-    def dispense(self) -> None:
-        self.__state.dispense()
-        
-    def setState(self, state):
-        self.__state = state
-        
-    def releaseBall(self) -> None:
-        print("ガムボールがスロットから転がり出てきます")
-        if self.__count != 0:
-            self.__count -= 1
-    
-    def refill(self, count:int):
-        self.__count += count
-        print("ガムボールは補充されました。新たなカウントは" + str(self.__count))
-        self.__state.refill()
-        
-    @property
-    def soldOutState(self):
-        return self.__soldOutState
-        
-    @property
-    def noQuarterState(self):
-        return self.__noQuarterState
-
-    @property
-    def hasQuarterState(self):
-        return self.__hasQuarterState
-        
-    @property
-    def soldState(self):
-        return self.__soldState
-        
-    @property
-    def winnerState(self):
-        return self.__winnerState
-        
-    @property
-    def count(self):
-        return self.__count
-        
-    @property
-    def state(self):
-        return self.__state
-    
-
-#実行パート
-class gumballMachineTestDrive():
-    def main():
-        gumballMachine = GumballMachine(4)
-
-        print("---------------------------------")
-        print("残ボール数："+ str(gumballMachine.count))
-        print("---------------------------------")
-
-        gumballMachine.insertQuarter()
-        gumballMachine.turnCrank()
-        gumballMachine.dispense()
-
-        print("---------------------------------")
-        print("残ボール数："+ str(gumballMachine.count))
-        print("---------------------------------")
-
-        gumballMachine.insertQuarter()
-        gumballMachine.turnCrank()
-        gumballMachine.dispense()
-
-        print("---------------------------------")
-        print("残ボール数："+ str(gumballMachine.count))
-        print("---------------------------------")
-
-        gumballMachine.insertQuarter()
-        gumballMachine.turnCrank()
-        gumballMachine.dispense()
-
-        print("---------------------------------")
-        print("残ボール数："+ str(gumballMachine.count))
-        print("---------------------------------")
-
-        if gumballMachine.count == 0:
-            gumballMachine.refill(5)
-        
-
-#実行
-gumballMachineTestDrive.main()
