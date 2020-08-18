@@ -3,6 +3,7 @@ from abc import ABCMeta, abstractmethod
 #コマンドクラス
 ##抽象パート
 class Command(metaclass=ABCMeta):
+    @abstractmethod
     def execute():
         pass
 

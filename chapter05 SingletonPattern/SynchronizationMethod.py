@@ -2,6 +2,7 @@
 
 class Singleton():
     def __uniqueInstance():
+        @abstractmethod
         pass
 
     def getInstance():

@@ -11,9 +11,11 @@ class CaffeineBeverage(metaclass=ABCMeta):
             self.addCondiments()
         self.reselt()
 
+    @abstractmethod
     def brew(self):
         pass
 
+    @abstractmethod
     def addCondiments(self):
         pass
 
@@ -23,6 +25,7 @@ class CaffeineBeverage(metaclass=ABCMeta):
     def pourInCup(self):
         print("カップに注ぎます")
     
+    @abstractmethod
     def reselt(self):
         pass
     
