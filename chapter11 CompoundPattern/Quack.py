@@ -1,24 +1,53 @@
 from abc import ABCMeta, abstractmethod
 
-class Quackable(metaclass=ABCMeta):
+class Quackable(metaclass=ABCMeta, QuackObservable):
     def quack(self):
         pass
 
 class MallarDuck(Quackable):
     def quack(self):
         print("ガーガー")
+        self.__obserable = Observable(self)
+    
+    def registerObserver(self, observer:object):
+        self.__obserable.registerObserver(observer)
+    
+    def notifyObservers(self):
+        self.__obserable.notifyObservers()
+
 
 class RedheadDuck(Quackable):
     def quack(self):
         print("ガーガー")
+        self.__obserable = Observable(self)
+    
+    def registerObserver(self, observer:object):
+        self.__obserable.registerObserver(observer)
+    
+    def notifyObservers(self):
+        self.__obserable.notifyObservers()
 
 class DuckCall(Quackable):
     def quack(self):
         print("ガアガア")
+        self.__obserable = Observable(self)
+    
+    def registerObserver(self, observer:object):
+        self.__obserable.registerObserver(observer)
+    
+    def notifyObservers(self):
+        self.__obserable.notifyObservers()
 
 class RubberDuck(Quackable):
     def quack(self):
         print("キューキュー")
+        self.__obserable = Observable(self)
+    
+    def registerObserver(self, observer:object):
+        self.__obserable.registerObserver(observer)
+    
+    def notifyObservers(self):
+        self.__obserable.notifyObservers()
 
 class Goose(Quackable):
     def hock(self):
@@ -40,6 +69,12 @@ class QuackCountInjecter(Quackable):
     def quack(self):
         self.__duck.quack()
         self.__quackCounter.addCounter()
+        
+    def registerObserver(self, observer:object):
+        self.__duck.registerObserver(observer)
+    
+    def notifyObservers(self):
+        self.__duck.notifyObservers()
 
     
     def numberOfQuacks(self) -> int:
@@ -55,7 +90,7 @@ class Flock(Quackable):
     def quack(self):
         iterator = self.__quakers
         for ite in iterator:
-            ite.quack()
+            ite.update()
         
 
 class QuackCounter():
@@ -66,7 +101,7 @@ class QuackCounter():
     def numberOfQuacks(self) -> int:
         return self.__quackCount
 
-#ファクトリ
+#ファクトリパターン
 ##抽象パート
 class abstractDuckFactory(metaclass=ABCMeta):
     def createMallarDuck(self):
@@ -107,6 +142,37 @@ class CountingDuckFactory(abstractDuckFactory):
     
     def createRubberDuck() -> object:
         return QuackCountInjecter(RubberDuck())
+
+#オブザーブパターン
+##抽象パート
+class QuackObservable(metaclass=ABCMeta):
+    def registerObserver(self, observer):
+        pass
+
+    def notifyObservers(self):
+        pass
+
+class Observable(QuackObservable):
+    def __init__(self, duck:object):
+        self.__observers = []
+        self.__duck = duck
+    
+    def registerObserver(self, observer:object):
+        self.__observers.add(observer)
+
+    def notifyObservers(self):
+        iterator = self.__observers
+        for i, ite in enumerate(iterator):
+            if i < len(iterator)-2:
+                self.__observers[i] = self.__duck
+
+class Observer(metaclass=ABCMeta):
+    def update(duck:object):
+        pass
+
+class Quackologist(Observer):
+    def update(duck:object):
+        print("鴨鳴き声学者："+duck+"が鳴きました")
 
 
     
